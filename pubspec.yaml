@@ -38,6 +38,9 @@ dependencies:
   table_calendar: ^3.0.9
   intl: ^0.18.1
   custom_check_box: ^0.0.4
+  after_layout: ^1.2.0
+  flutter_native_splash: ^2.3.7
+  velocity_x: ^4.1.2
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/theme/colors.dart';
+import 'package:todo/common/theme/colors.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 
 class TodoCard extends StatefulWidget {
@@ -44,62 +44,67 @@ class _TodoCardState extends State<TodoCard> {
                     backgroundColor: const Color.fromARGB(250, 255, 255, 255),
                     context: context,
                     builder: (BuildContext context) {
-                      return SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.25,
+                      return Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.fromLTRB(15, 20, 15, 23),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: const Icon(
-                                  CupertinoIcons.checkmark_alt,
-                                  size: 25,
-                                  color: darkMainColor,
-                                ),
-                                title: const Text(
-                                  '완료',
-                                  style: TextStyle(
-                                    color: darkgrey,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 3),
+                                child: ListTile(
+                                  leading: const Icon(
+                                    CupertinoIcons.checkmark_alt,
+                                    size: 26,
+                                    color: darkMainColor,
                                   ),
+                                  title: const Text(
+                                    ' 완료',
+                                    style: TextStyle(
+                                      color: darkgrey,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    // 여기에 완료 작업을 처리하는 코드를 넣으세요.
+                                    Navigator.pop(context);
+                                  },
                                 ),
-                                onTap: () {
-                                  // 여기에 완료 작업을 처리하는 코드를 넣으세요.
-                                  Navigator.pop(context);
-                                },
                               ),
-                              ListTile(
-                                leading: const Icon(
-                                  CupertinoIcons.pencil,
-                                  color: darkMainColor,
-                                  size: 23,
-                                ),
-                                title: const Text(
-                                  '수정',
-                                  style: TextStyle(
-                                    color: darkgrey,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 3),
+                                child: ListTile(
+                                  leading: const Icon(
+                                    CupertinoIcons.pencil,
+                                    color: darkMainColor,
+                                    size: 24,
                                   ),
+                                  title: const Text(
+                                    ' 수정',
+                                    style: TextStyle(
+                                      color: darkgrey,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    // 여기에 수정 작업을 처리하는 코드를 넣으세요.
+                                    Navigator.pop(context);
+                                  },
                                 ),
-                                onTap: () {
-                                  // 여기에 수정 작업을 처리하는 코드를 넣으세요.
-                                  Navigator.pop(context);
-                                },
                               ),
                               ListTile(
                                 leading: const Icon(
                                   CupertinoIcons.delete,
-                                  size: 20,
+                                  size: 21,
                                   color: Color.fromARGB(255, 202, 124, 137),
                                 ),
                                 title: const Text(
-                                  '삭제',
+                                  ' 삭제',
                                   style: TextStyle(
                                     color: darkgrey,
-                                    fontSize: 15.0,
+                                    fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

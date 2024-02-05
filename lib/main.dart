@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/theme/colors.dart';
-import 'screens/home_screen.dart';
+import 'package:todo/common/theme/colors.dart';
+import 'package:todo/screen/main/s_main.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
@@ -19,10 +19,11 @@ class MyApp extends StatelessWidget {
       title: 'todo',
       theme: ThemeData(
         primaryColor: mainColor,
+
         //colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const MainScreen(),
     );
   }
 }

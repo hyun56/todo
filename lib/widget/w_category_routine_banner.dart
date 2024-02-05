@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/theme/colors.dart';
 
-import 'todo_card.dart';
+import '../common/theme/colors.dart';
+import 'w_todo_card.dart';
 
-class CategoryBanner extends StatefulWidget {
+class CategoryRoutineBanner extends StatefulWidget {
   final String title;
 
-  const CategoryBanner({
+  const CategoryRoutineBanner({
     required this.title,
     Key? key,
   }) : super(key: key);
 
   @override
-  _CategoryBannerState createState() => _CategoryBannerState();
+  State<CategoryRoutineBanner> createState() => _CategoryRoutineBannerState();
 }
 
-class _CategoryBannerState extends State<CategoryBanner> {
+class _CategoryRoutineBannerState extends State<CategoryRoutineBanner> {
   bool isInputVisible = false;
   final TextEditingController _controller = TextEditingController();
   List<String> todos = [];
@@ -32,7 +32,7 @@ class _CategoryBannerState extends State<CategoryBanner> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(23, 25, 21, 3),
+          padding: const EdgeInsets.fromLTRB(23, 25, 21, 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,

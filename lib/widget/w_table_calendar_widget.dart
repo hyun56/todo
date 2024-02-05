@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../theme/colors.dart';
+import '../common/theme/colors.dart';
 
 class TableCalendarWidget extends StatefulWidget {
   const TableCalendarWidget({
