@@ -62,7 +62,7 @@ class _CategoryBannerState extends State<CategoryBanner> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            backgroundColor: backgrounColor,
+                            backgroundColor: backgroundColor,
                             elevation: 0,
                             titlePadding:
                                 const EdgeInsets.fromLTRB(0, 27, 0, 5),
@@ -192,7 +192,7 @@ class _CategoryBannerState extends State<CategoryBanner> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                backgroundColor: backgrounColor,
+                                backgroundColor: backgroundColor,
                                 elevation: 0,
                                 titlePadding:
                                     const EdgeInsets.fromLTRB(0, 27, 0, 5),

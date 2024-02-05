@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:todo/screen/main/tab/todo_appbar.dart';
 
 class FriendFragment extends StatefulWidget {
   const FriendFragment({super.key});
@@ -10,6 +12,9 @@ class FriendFragment extends StatefulWidget {
 class _FriendFragmentState extends State<FriendFragment> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      appBar: TodoAppBar(title: '친구'),
+      body: Column(),
+    );
   }
 }

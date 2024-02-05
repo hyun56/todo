@@ -30,7 +30,7 @@ enum TabItem {
           key: ValueKey(tabName),
           isActivated ? activeIcon : inActiveIcon,
           color: isActivated ? darkMainColor : grey,
-          size: 25,
+          size: 24,
         ),
         label: tabName);
   }
