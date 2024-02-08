@@ -54,7 +54,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         titleTextStyle: const TextStyle(
           fontSize: 16.8,
           fontWeight: FontWeight.bold,
-          color: darkgrey,
+          color: Colors.black,
         ),
       ),
 

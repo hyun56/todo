@@ -25,7 +25,7 @@ class FriendTodo extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 10),
             const Expanded(
               child: Text(
                 '테스트테스트테스트테스트',

@@ -27,7 +27,7 @@ class TodoAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: darkgrey,
+            color: Colors.black,
           ),
         ),
       ),
