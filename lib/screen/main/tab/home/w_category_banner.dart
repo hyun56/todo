@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/main.dart';
 import 'package:todo/common/theme/colors.dart';
-
 import 'w_todo_card.dart';
 
 class CategoryBanner extends StatefulWidget {
   final String title;
+  final DateTime selectedDate;
 
   const CategoryBanner({
     required this.title,
+    required this.selectedDate,
     Key? key,
   }) : super(key: key);
 
@@ -21,9 +21,12 @@ class _CategoryBannerState extends State<CategoryBanner> {
   bool isInputVisible = false;
   final TextEditingController _controller = TextEditingController();
   List<String> todos = [];
+  Map<DateTime, List<String>> todosByDate = {};
 
   String editingTitle = '';
   bool isEditing = false;
+
+  bool isTabBarVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +130,17 @@ class _CategoryBannerState extends State<CategoryBanner> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  setState(() {
+                                    final todo = _controller.text;
+                                    if (todosByDate[widget.selectedDate] ==
+                                        null) {
+                                      todosByDate[widget.selectedDate] = [todo];
+                                    } else {
+                                      todosByDate[widget.selectedDate]!
+                                          .add(todo);
+                                    }
+                                    _controller.clear();
+                                  });
                                   Navigator.of(context).pop(_controller.text);
                                 },
                               ),
@@ -268,6 +282,10 @@ class _CategoryBannerState extends State<CategoryBanner> {
                             },
                           );
                         } else if (value == 'public') {
+                          setState(() {
+                            isTabBarVisible = false; // 탭바를 숨깁니다.
+                          });
+
                           showModalBottomSheet<void>(
                             context: context,
                             builder: (BuildContext context) {
@@ -275,7 +293,11 @@ class _CategoryBannerState extends State<CategoryBanner> {
                             },
                             backgroundColor:
                                 const Color.fromARGB(250, 255, 255, 255),
-                          );
+                          ).then((_) {
+                            setState(() {
+                              isTabBarVisible = true; // 모달이 닫힐 때 탭바를 다시 표시합니다.
+                            });
+                          });
                         }
                       },
                     ),
@@ -298,7 +320,8 @@ class _CategoryBannerState extends State<CategoryBanner> {
             ],
           ),
         ),
-        for (var todo in todos) TodoCard(content: todo),
+        for (var todo in (todosByDate[widget.selectedDate] ?? []))
+          TodoCard(content: todo),
       ],
     );
   }
@@ -402,8 +425,7 @@ class _PublicSettingModalState extends State<PublicSettingModal> {
                         MaterialStateProperty.all<Color>(darkMainColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(16.0), // 모서리를 덜 둥글게 만듭니다.
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                   ),

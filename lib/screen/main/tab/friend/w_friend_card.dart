@@ -16,7 +16,7 @@ class FriendCard extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: grey,
-            width: 2.5,
+            width: 1.5,
           ),
           borderRadius: BorderRadius.circular(10),
         ),

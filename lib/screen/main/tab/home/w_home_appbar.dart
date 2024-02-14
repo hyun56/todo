@@ -36,7 +36,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
               onPressed: () {},
-              icon: const Icon(CupertinoIcons.gear, size: 29)),
+              icon: const Icon(CupertinoIcons.square_list, size: 29)),
         ),
       ],
     );

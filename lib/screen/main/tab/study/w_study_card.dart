@@ -81,7 +81,10 @@ class StudyCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const Divider(thickness: 1.5),
+              const Divider(
+                thickness: 1.5,
+                color: grey,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

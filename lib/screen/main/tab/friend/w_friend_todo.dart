@@ -21,7 +21,7 @@ class FriendTodo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7),
                 border: Border.all(
                   color: grey,
-                  width: 2,
+                  width: 1.5,
                 ),
               ),
             ),

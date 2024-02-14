@@ -56,12 +56,12 @@ class _FriendFragmentState extends State<FriendFragment> {
                       )
                     : null,
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: darkMainColor, width: 2),
+                  borderSide: BorderSide(color: darkMainColor, width: 1.5),
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: grey, width: 2),
+                  borderSide: BorderSide(color: grey, width: 1.5),
                 ),
               ),
             ),

@@ -23,7 +23,7 @@ class StudyTodo extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
                     color: grey,
-                    width: 2,
+                    width: 1.5,
                   ),
                 ),
               ),

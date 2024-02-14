@@ -36,6 +36,9 @@ class _MainScreenState extends State<MainScreen>
   // bottomNavigationBar 아래 영역 까지 그림
   bool get extendBody => true;
 
+  // 탭바 가시성을 제어하는 변수
+  bool isTabBarVisible = true;
+
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
     FlutterNativeSplash.remove();
@@ -98,31 +101,34 @@ class _MainScreenState extends State<MainScreen>
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 1),
-        ],
-      ),
-      child: ClipRRect(
-        // borderRadius: const BorderRadius.only(
-        //   topLeft: Radius.circular(30),
-        //   topRight: Radius.circular(30),
-        // ),
-        child: BottomNavigationBar(
-          items: navigationBarItems(context),
-          currentIndex: _currentIndex,
-          selectedItemColor: darkMainColor,
-          unselectedItemColor: grey,
-          onTap: _handleOnTapNavigationBarItem,
-          selectedFontSize: 10,
-          unselectedFontSize: 10,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-        ),
-      ),
-    );
+    return isTabBarVisible
+        ? Container(
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26, spreadRadius: 0, blurRadius: 1),
+              ],
+            ),
+            child: ClipRRect(
+              // borderRadius: const BorderRadius.only(
+              //   topLeft: Radius.circular(30),
+              //   topRight: Radius.circular(30),
+              // ),
+              child: BottomNavigationBar(
+                items: navigationBarItems(context),
+                currentIndex: _currentIndex,
+                selectedItemColor: darkMainColor,
+                unselectedItemColor: grey,
+                onTap: _handleOnTapNavigationBarItem,
+                selectedFontSize: 10,
+                unselectedFontSize: 10,
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                type: BottomNavigationBarType.fixed,
+              ),
+            ),
+          )
+        : Container();
   }
 
   List<BottomNavigationBarItem> navigationBarItems(BuildContext context) {

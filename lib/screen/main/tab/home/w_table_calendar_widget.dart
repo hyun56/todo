@@ -3,23 +3,15 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/theme/colors.dart';
 
-class TableCalendarWidget extends StatefulWidget {
+class TableCalendarWidget extends StatelessWidget {
+  final OnDaySelected onDaySelected; // 날짜 선택 시 실행할 함수
+  final DateTime selectedDate; // 선택된 날짜
+
   const TableCalendarWidget({
     super.key,
+    required this.onDaySelected,
+    required this.selectedDate,
   });
-
-  @override
-  State<TableCalendarWidget> createState() => _TableCalendarWidgetState();
-}
-
-class _TableCalendarWidgetState extends State<TableCalendarWidget> {
-  DateTime selectedDay = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
-
-  DateTime focusedDay = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +23,18 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       calendarFormat: CalendarFormat.week, // 한 주만 보이도록
       daysOfWeekHeight: 38, // 요일 이름이 표시되는 영역의 높이를 설정
 
-      focusedDay: focusedDay,
-      onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
-        // 선택된 날짜의 상태를 갱신합니다.
-        setState(() {
-          this.selectedDay = selectedDay;
-          this.focusedDay = focusedDay;
-        });
-      },
-      selectedDayPredicate: (DateTime day) {
+      focusedDay: DateTime.now(),
+      onDaySelected: onDaySelected,
+
+      selectedDayPredicate: (date) =>
+          date.year == selectedDate.year &&
+          date.month == selectedDate.month &&
+          date.day == selectedDate.day,
+
+      /*selectedDayPredicate: (DateTime day) {
         // selectedDay 와 동일한 날짜의 모양을 바꿔줍니다.
         return isSameDay(selectedDay, day);
-      },
+      },*/
 
       headerStyle: HeaderStyle(
         titleCentered: true,
