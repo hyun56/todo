@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nav/nav.dart';
 import 'package:todo/common/theme/colors.dart';
+
+import 'setting/s_todo_setting.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -31,12 +34,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       actions: [
         IconButton(
-            onPressed: () {}, icon: const Icon(CupertinoIcons.bell, size: 28)),
+          onPressed: () {},
+          icon: const Icon(CupertinoIcons.bell, size: 26),
+        ),
         Padding(
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
-              onPressed: () {},
-              icon: const Icon(CupertinoIcons.square_list, size: 29)),
+            onPressed: () {
+              Nav.push(const TodoSettingScreen());
+            },
+            icon: const Icon(CupertinoIcons.list_bullet, size: 27.5),
+          ),
         ),
       ],
     );

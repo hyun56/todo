@@ -1,7 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/data/memory/todo_data_holder.dart';
+import 'package:todo/data/memory/vo_todo.dart';
+import 'package:todo/screen/main/tab/home/todo/w_todo_list.dart';
+import 'todo/d_write_todo.dart';
 import 'w_home_appbar.dart';
 import 'w_category_banner.dart';
 import 'w_table_calendar_widget.dart';
+import 'package:nav/dialog/dialog.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({super.key});
@@ -53,6 +59,26 @@ class _HomeFragmentState extends State<HomeFragment> {
                   const SizedBox(height: 20),
                 ],
               ),
+            ),
+            const Expanded(
+              child: TodoList(),
+            ),
+            FloatingActionButton(
+              onPressed: () async {
+                final result =
+                    await WriteTodoDialog(selectedDate: selectedDate).show();
+                if (result != null && mounted) {
+                  context.holder.notifier.addTodo(
+                    Todo(
+                      todoName: result.todoName,
+                      date: result.date,
+                      scope: result.scope,
+                      
+                    ),
+                  );
+                }
+              },
+              child: const Icon(CupertinoIcons.add),
             ),
           ],
         ),

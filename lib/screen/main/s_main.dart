@@ -19,14 +19,9 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin, AfterLayoutMixin {
   TabItem _currentTab = TabItem.home;
 
-  final tabs = [
-    TabItem.calendar,
-    TabItem.home,
-    TabItem.study,
-    TabItem.friend,
-    TabItem.mypage,
-  ];
-  final List<GlobalKey<NavigatorState>> navigatorKeys = [];
+  final tabs = TabItem.values;
+  late final List<GlobalKey<NavigatorState>> navigatorKeys =
+      TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
 
   int get _currentIndex => tabs.indexOf(_currentTab);
 
@@ -44,11 +39,11 @@ class _MainScreenState extends State<MainScreen>
     FlutterNativeSplash.remove();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    initNavigatorKeys();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initNavigatorKeys();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +59,10 @@ class _MainScreenState extends State<MainScreen>
             child: pages,
           ),
         ),
+
         bottomNavigationBar: _buildBottomNavigationBar(context),
       ),
     );
-  }
-
-  void initNavigatorKeys() {
-    for (final _ in tabs) {
-      navigatorKeys.add(GlobalKey<NavigatorState>());
-    }
   }
 
   IndexedStack get pages => IndexedStack(
@@ -101,34 +91,31 @@ class _MainScreenState extends State<MainScreen>
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
-    return isTabBarVisible
-        ? Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, spreadRadius: 0, blurRadius: 1),
-              ],
-            ),
-            child: ClipRRect(
-              // borderRadius: const BorderRadius.only(
-              //   topLeft: Radius.circular(30),
-              //   topRight: Radius.circular(30),
-              // ),
-              child: BottomNavigationBar(
-                items: navigationBarItems(context),
-                currentIndex: _currentIndex,
-                selectedItemColor: darkMainColor,
-                unselectedItemColor: grey,
-                onTap: _handleOnTapNavigationBarItem,
-                selectedFontSize: 10,
-                unselectedFontSize: 10,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                type: BottomNavigationBarType.fixed,
-              ),
-            ),
-          )
-        : Container();
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: [
+          BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 1),
+        ],
+      ),
+      child: ClipRRect(
+        // borderRadius: const BorderRadius.only(
+        //   topLeft: Radius.circular(30),
+        //   topRight: Radius.circular(30),
+        // ),
+        child: BottomNavigationBar(
+          items: navigationBarItems(context),
+          currentIndex: _currentIndex,
+          selectedItemColor: darkMainColor,
+          unselectedItemColor: grey,
+          onTap: _handleOnTapNavigationBarItem,
+          selectedFontSize: 10,
+          unselectedFontSize: 10,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+        ),
+      ),
+    );
   }
 
   List<BottomNavigationBarItem> navigationBarItems(BuildContext context) {
