@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/instance_manager.dart';
 import 'package:nav/nav.dart';
 import 'package:todo/common/common.dart';
@@ -35,15 +36,17 @@ class AppState extends State<App> with Nav, WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      title: 'todo',
-      theme: ThemeData(
-        primaryColor: mainColor,
-        //colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
-        useMaterial3: true,
+    return ProviderScope(
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        title: 'todo',
+        theme: ThemeData(
+          primaryColor: mainColor,
+          //colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
+          useMaterial3: true,
+        ),
+        home: const MainScreen(),
       ),
-      home: const MainScreen(),
     );
   }
 

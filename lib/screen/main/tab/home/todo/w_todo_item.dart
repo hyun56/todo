@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:todo/common/common.dart';
 import 'package:todo/common/theme/colors.dart';
 import 'package:todo/common/widget/w_rounded_container.dart';
-import 'package:todo/data/memory/todo_data_holder.dart';
 import 'package:todo/data/memory/vo_todo.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'w_todo_status.dart';
 
-class TodoItem extends StatelessWidget with TodoDataProvider {
+class TodoItem extends ConsumerWidget {
   final Todo todo;
 
-  TodoItem(this.todo, {super.key});
+  const TodoItem(this.todo, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(todo.date);
 
     return RoundedContainer(
@@ -47,7 +48,7 @@ class TodoItem extends StatelessWidget with TodoDataProvider {
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () async {
-                              await todoData.editTodo(todo);
+                              ref.readTodoHolder.editTodo(todo);
                               Navigator.pop(context);
                             },
                           ),
@@ -57,7 +58,7 @@ class TodoItem extends StatelessWidget with TodoDataProvider {
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () {
-                              todoData.removeTodo(todo);
+                              ref.readTodoHolder.removeTodo(todo);
                               Navigator.pop(context);
                             },
                           ),

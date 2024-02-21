@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/screen/main/tab/home/todo/d_write_todo.dart';
 
 import 'vo_todo.dart';
 
-class TodoDataHolder extends GetxController {
-  final RxList<Todo> todoList = <Todo>[].obs;
+final todoDataProvider = StateNotifierProvider<TodoDataHolder, List<Todo>>(
+    (ref) => TodoDataHolder());
+
+class TodoDataHolder extends StateNotifier<List<Todo>> {
+  TodoDataHolder() : super([]);
 
   void changeTodoStatus(Todo todo) async {
     switch (todo.isCompleted) {
@@ -14,19 +16,20 @@ class TodoDataHolder extends GetxController {
       case true:
         todo.isCompleted = false;
     }
-    todoList.refresh();
+    state = List.of(state);
   }
 
   void addTodo(DateTime selectedDate) async {
     final result = await WriteTodoDialog(selectedDate: selectedDate).show();
     if (result != null) {
-      todoList.add(
+      state.add(
         Todo(
           todoName: result.todoName,
           date: result.date,
           scope: result.scope,
         ),
       );
+      state = List.of(state);
     }
   }
 
@@ -38,16 +41,16 @@ class TodoDataHolder extends GetxController {
     if (result != null) {
       todo.todoName = result.todoName;
       todo.scope = result.scope;
-      todoList.refresh();
+      state = List.of(state);
     }
   }
 
   void removeTodo(Todo todo) {
-    todoList.remove(todo);
-    todoList.refresh();
+    state.remove(todo);
+    state = List.of(state);
   }
 }
 
-mixin class TodoDataProvider {
-  late final TodoDataHolder todoData = Get.find();
+extension TodoListHolderProvider on WidgetRef {
+  TodoDataHolder get readTodoHolder => read(todoDataProvider.notifier);
 }

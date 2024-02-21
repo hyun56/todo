@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todo/common/theme/colors.dart';
-import 'package:todo/screen/main/tab/home/setting/category/f_category.dart';
 
 class TodoSettingScreen extends HookWidget {
   const TodoSettingScreen({super.key});

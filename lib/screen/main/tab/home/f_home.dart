@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/data/memory/todo_data_holder.dart';
 import 'package:todo/screen/main/tab/home/todo/w_todo_list.dart';
 import 'w_home_appbar.dart';
 import 'w_category_banner.dart';
 import 'w_table_calendar_widget.dart';
 
-class HomeFragment extends StatefulWidget {
+class HomeFragment extends ConsumerStatefulWidget {
   const HomeFragment({super.key});
 
   @override
-  State<HomeFragment> createState() => _HomeFragmentState();
+  ConsumerState<HomeFragment> createState() => _HomeFragmentState();
 }
 
-class _HomeFragmentState extends State<HomeFragment> with TodoDataProvider {
+class _HomeFragmentState extends ConsumerState<HomeFragment> {
   DateTime selectedDate = DateTime.utc(
     DateTime.now().year,
     DateTime.now().month,
@@ -57,12 +58,12 @@ class _HomeFragmentState extends State<HomeFragment> with TodoDataProvider {
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: TodoList(),
             ),
             FloatingActionButton(
               onPressed: () async {
-                todoData.addTodo(selectedDate);
+                ref.readTodoHolder.addTodo(selectedDate);
               },
               child: const Icon(CupertinoIcons.add),
             ),
