@@ -9,10 +9,10 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'w_todo_status.dart';
 
-class TodoItem extends StatelessWidget {
+class TodoItem extends StatelessWidget with TodoDataProvider {
   final Todo todo;
 
-  const TodoItem(this.todo, {super.key});
+  TodoItem(this.todo, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TodoItem extends StatelessWidget {
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () async {
-                              await context.holder.editTodo(todo);
+                              await todoData.editTodo(todo);
                               Navigator.pop(context);
                             },
                           ),
@@ -57,7 +57,7 @@ class TodoItem extends StatelessWidget {
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () {
-                              context.holder.removeTodo(todo);
+                              todoData.removeTodo(todo);
                               Navigator.pop(context);
                             },
                           ),

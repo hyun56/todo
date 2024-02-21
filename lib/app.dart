@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:nav/nav.dart';
-import 'package:todo/data/memory/todo_data_holder.dart';
-import 'package:todo/data/memory/todo_data_notifier.dart';
+import 'package:todo/common/common.dart';
 
 import 'common/theme/colors.dart';
 import 'screen/main/s_main.dart';
@@ -20,35 +20,30 @@ class AppState extends State<App> with Nav, WidgetsBindingObserver {
   @override
   GlobalKey<NavigatorState> get navigatorKey => App.navigatorKey;
 
-  final notifier = TodoDataNotifier();
-
   @override
   void initState() {
     super.initState();
+    Get.put(TodoDataHolder());
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    notifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return TodoDataHolder(
-      notifier: notifier,
-      child: MaterialApp(
-        navigatorKey: navigatorKey,
-        title: 'todo',
-        theme: ThemeData(
-          primaryColor: mainColor,
-          //colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
-          useMaterial3: true,
-        ),
-        home: const MainScreen(),
+    return MaterialApp(
+      navigatorKey: navigatorKey,
+      title: 'todo',
+      theme: ThemeData(
+        primaryColor: mainColor,
+        //colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
+        useMaterial3: true,
       ),
+      home: const MainScreen(),
     );
   }
 

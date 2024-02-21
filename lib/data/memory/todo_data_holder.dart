@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo/data/memory/todo_data_notifier.dart';
+import 'package:get/get.dart';
 import 'package:todo/screen/main/tab/home/todo/d_write_todo.dart';
 
 import 'vo_todo.dart';
 
-class TodoDataHolder extends InheritedWidget {
-  final TodoDataNotifier notifier;
-
-  const TodoDataHolder({
-    super.key,
-    required super.child,
-    required this.notifier,
-  });
-
-  @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    return true;
-  }
-
-  static TodoDataHolder _of(BuildContext context) {
-    TodoDataHolder inherited =
-        (context.dependOnInheritedWidgetOfExactType<TodoDataHolder>())!;
-    return inherited;
-  }
+class TodoDataHolder extends GetxController {
+  final RxList<Todo> todoList = <Todo>[].obs;
 
   void changeTodoStatus(Todo todo) async {
     switch (todo.isCompleted) {
@@ -31,7 +14,20 @@ class TodoDataHolder extends InheritedWidget {
       case true:
         todo.isCompleted = false;
     }
-    notifier.notify();
+    todoList.refresh();
+  }
+
+  void addTodo(DateTime selectedDate) async {
+    final result = await WriteTodoDialog(selectedDate: selectedDate).show();
+    if (result != null) {
+      todoList.add(
+        Todo(
+          todoName: result.todoName,
+          date: result.date,
+          scope: result.scope,
+        ),
+      );
+    }
   }
 
   Future<void> editTodo(Todo todo) async {
@@ -42,29 +38,16 @@ class TodoDataHolder extends InheritedWidget {
     if (result != null) {
       todo.todoName = result.todoName;
       todo.scope = result.scope;
-      notifier.notify();
+      todoList.refresh();
     }
   }
 
   void removeTodo(Todo todo) {
-    notifier.value.remove(todo);
-    notifier.notify();
-  }
-
-  void addTodo(DateTime selectedDate) async {
-    final result = await WriteTodoDialog(selectedDate: selectedDate).show();
-    if (result != null) {
-      notifier.addTodo(
-        Todo(
-          todoName: result.todoName,
-          date: result.date,
-          scope: result.scope,
-        ),
-      );
-    }
+    todoList.remove(todo);
+    todoList.refresh();
   }
 }
 
-extension TodoDataHolderContextExtension on BuildContext {
-  TodoDataHolder get holder => TodoDataHolder._of(this);
+mixin class TodoDataProvider {
+  late final TodoDataHolder todoData = Get.find();
 }
