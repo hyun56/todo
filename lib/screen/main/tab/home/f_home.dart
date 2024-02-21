@@ -65,18 +65,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             ),
             FloatingActionButton(
               onPressed: () async {
-                final result =
-                    await WriteTodoDialog(selectedDate: selectedDate).show();
-                if (result != null && mounted) {
-                  context.holder.notifier.addTodo(
-                    Todo(
-                      todoName: result.todoName,
-                      date: result.date,
-                      scope: result.scope,
-                      
-                    ),
-                  );
-                }
+                context.holder.addTodo(selectedDate);
               },
               child: const Icon(CupertinoIcons.add),
             ),

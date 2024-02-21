@@ -50,6 +50,19 @@ class TodoDataHolder extends InheritedWidget {
     notifier.value.remove(todo);
     notifier.notify();
   }
+
+  void addTodo(DateTime selectedDate) async {
+    final result = await WriteTodoDialog(selectedDate: selectedDate).show();
+    if (result != null) {
+      notifier.addTodo(
+        Todo(
+          todoName: result.todoName,
+          date: result.date,
+          scope: result.scope,
+        ),
+      );
+    }
+  }
 }
 
 extension TodoDataHolderContextExtension on BuildContext {
