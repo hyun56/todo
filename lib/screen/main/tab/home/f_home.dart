@@ -41,19 +41,19 @@ class _HomeFragmentState extends State<HomeFragment> with TodoDataProvider {
                   // const CategoryRoutineBanner(
                   //   title: '루틴',
                   // ),
-                  //TodoCard(content: 'test'),
-                  //TodoCard(content: 'test2'),
-                  //const SizedBox(height: 20),
-                  CategoryBanner(
-                    title: '기본 카테고리',
-                    selectedDate: selectedDate,
-                  ),
-                  const SizedBox(height: 20),
-                  CategoryBanner(
-                    title: '카테고리 2',
-                    selectedDate: selectedDate,
-                  ),
-                  const SizedBox(height: 20),
+                  // TodoCard(content: 'test'),
+                  // TodoCard(content: 'test2'),
+                  // const SizedBox(height: 20),
+                  // CategoryBanner(
+                  //   title: '기본 카테고리',
+                  //   selectedDate: selectedDate,
+                  // ),
+                  // const SizedBox(height: 20),
+                  // CategoryBanner(
+                  //   title: '카테고리 2',
+                  //   selectedDate: selectedDate,
+                  // ),
+                  // const SizedBox(height: 20),
                 ],
               ),
             ),

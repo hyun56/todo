@@ -15,7 +15,7 @@ class TodoApi implements TodoRepository<ApiError> {
   //final client = TodoClient(Dio()..interceptors.add(DioJsonResponseConverter()));
   final client = Dio(BaseOptions(
     baseUrl: Platform.isAndroid
-        ? 'http://192.168.0.5:8080/'
+        ? 'http://172.16.0.95:8080/'
         : 'http://localhost:8080/',
     followRedirects: false,
   ));
@@ -45,15 +45,19 @@ class TodoApi implements TodoRepository<ApiError> {
   @override
   Future<SimpleResult<void, ApiError>> updateTodo(Todo todo) async {
     return tryRequest(() async {
-      await client.put('todos/${todo.todoName}', data: todo.toJson());
+      //print(todo);
+      await client.put('sweetodo/todo/update/{$todo.todoID}',
+          data: todo.toJson());
+      print(todo);
       return SimpleResult.success();
     });
   }
 
   @override
-  Future<SimpleResult<void, ApiError>> removeTodo(Todo todo) async {
+  Future<SimpleResult<void, ApiError>> removeTodo(int id) async {
     return tryRequest(() async {
-      await client.delete('sweetodo/todo/delete/352');
+      await client.delete('sweetodo/todo/delete/$id');
+
       return SimpleResult.success();
     });
   }

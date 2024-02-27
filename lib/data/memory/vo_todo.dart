@@ -31,13 +31,20 @@ class Todo {
     );
   }
 
+  get id => todoID;
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      //'todoID': todoID,
+      'todoID': todoID,
       'todoName': todoName,
       'date': date.toIso8601String(), // 문자열로 변환
       'isCompleted': isCompleted,
       'scope': describeEnum(scope),
     };
+  }
+
+  @override
+  String toString() {
+    return 'Todo{todoID: $todoID, todoName: $todoName, date: $date, isCompleted: $isCompleted, scope: $scope}';
   }
 }

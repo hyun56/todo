@@ -47,6 +47,8 @@ class TodoData extends GetxController {
         isCompleted: false,
       );
 
+      print(newTodo);
+
       final requestResult = await todoRepository.addTodo(newTodo);
       requestResult.runIfSuccess((data) => todoList.add(newTodo));
       requestResult.runIfFailure((error) {
@@ -61,14 +63,16 @@ class TodoData extends GetxController {
   }
 
   void changeTodoStatus(Todo todo) async {
-    bool nextStatus;
+    bool nextStatus = !todo.isCompleted;
 
-    switch (todo.isCompleted) {
-      case false:
-        nextStatus = true;
-      case true:
-        nextStatus = false;
-    }
+    // bool nextStatus = todo.isCompleted;
+
+    // switch (todo.isCompleted) {
+    //   case false:
+    //     nextStatus = true;
+    //   case true:
+    //     nextStatus = false;
+    // }
 
     final Todo todoForSave = Todo(
         todoID: todo.todoID,
@@ -77,8 +81,8 @@ class TodoData extends GetxController {
         scope: todo.scope,
         isCompleted: nextStatus);
 
-    final responseResult = await todoRepository
-        .updateTodo(todoForSave); //객체 안의 status 바꿔서 update요청
+    final responseResult = await todoRepository.updateTodo(todoForSave);
+    //print(todoForSave);
     processResponseResult(responseResult, todoForSave);
   }
 
@@ -110,12 +114,12 @@ class TodoData extends GetxController {
 
   void removeTodo(Todo todo) {
     todoList.remove(todo);
-    todoRepository.removeTodo(todo);
+    todoRepository.removeTodo(todo.id);
   }
 
   updateTodo(Todo updatedTodo) {
-    final todo = todoList
-        .firstWhere((element) => element.todoName == updatedTodo.todoName);
+    final todo =
+        todoList.firstWhere((element) => element.todoID == updatedTodo.todoID);
     todo
       ..todoName = updatedTodo.todoName
       ..scope = updatedTodo.scope

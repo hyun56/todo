@@ -26,6 +26,7 @@ class TodoItem extends StatelessWidget with TodoDataProvider {
             children: [
               TodoStatusWidget(todo),
               Expanded(child: todo.todoName.text.make()),
+              Expanded(child: Text(todo.isCompleted ? '완료됨' : '미완료')),
               IconButton(
                   onPressed: () {
                     showCupertinoModalPopup(
@@ -46,9 +47,10 @@ class TodoItem extends StatelessWidget with TodoDataProvider {
                               '수정',
                               style: TextStyle(fontSize: 17),
                             ),
-                            onPressed: () async {
-                              todoData.editTodo(todo);
-                              Navigator.pop(context);
+                            onPressed: () {
+                              todoData.editTodo(todo).then((_) {
+                                Navigator.pop(context);
+                              });
                             },
                           ),
                           CupertinoActionSheetAction(
