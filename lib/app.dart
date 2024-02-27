@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/instance_manager.dart';
 import 'package:nav/nav.dart';
-import 'package:todo/common/common.dart';
 
 import 'common/theme/colors.dart';
+import 'data/memory/todo_data.dart';
 import 'screen/main/s_main.dart';
 
 class App extends StatefulWidget {
@@ -24,7 +24,7 @@ class AppState extends State<App> with Nav, WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    Get.put(TodoDataHolder());
+    Get.put(TodoData());
     WidgetsBinding.instance.addObserver(this);
   }
 

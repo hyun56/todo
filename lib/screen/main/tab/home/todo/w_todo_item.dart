@@ -1,22 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:todo/common/common.dart';
 import 'package:todo/common/theme/colors.dart';
 import 'package:todo/common/widget/w_rounded_container.dart';
 import 'package:todo/data/memory/vo_todo.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../../data/memory/todo_data.dart';
 import 'w_todo_status.dart';
 
-class TodoItem extends ConsumerWidget {
+class TodoItem extends StatelessWidget with TodoDataProvider {
   final Todo todo;
 
-  const TodoItem(this.todo, {super.key});
+  TodoItem({super.key, required this.todo});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(todo.date);
 
     return RoundedContainer(
@@ -33,22 +32,22 @@ class TodoItem extends ConsumerWidget {
                       context: context,
                       builder: (BuildContext context) => CupertinoActionSheet(
                         actions: <Widget>[
-                          CupertinoActionSheetAction(
-                            child: const Text(
-                              '완료',
-                              style: TextStyle(fontSize: 17),
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          // CupertinoActionSheetAction(
+                          //   child: const Text(
+                          //     '완료',
+                          //     style: TextStyle(fontSize: 17),
+                          //   ),
+                          //   onPressed: () {
+                          //     Navigator.pop(context);
+                          //   },
+                          // ),
                           CupertinoActionSheetAction(
                             child: const Text(
                               '수정',
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () async {
-                              ref.readTodoHolder.editTodo(todo);
+                              todoData.editTodo(todo);
                               Navigator.pop(context);
                             },
                           ),
@@ -58,7 +57,7 @@ class TodoItem extends ConsumerWidget {
                               style: TextStyle(fontSize: 17),
                             ),
                             onPressed: () {
-                              ref.readTodoHolder.removeTodo(todo);
+                              todoData.removeTodo(todo);
                               Navigator.pop(context);
                             },
                           ),

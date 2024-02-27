@@ -10,9 +10,12 @@ import 'package:todo/common/widget/scaffold/bottom_dialog_scaffold.dart';
 import 'package:todo/common/widget/w_rounded_container.dart';
 import 'package:todo/data/memory/vo_todo.dart';
 
-import 'vo_write_todo.dart';
+import '../../../../../data/memory/todo_scope.dart';
+import '../../../../../data/memory/vo_todo_wirte_result.dart';
+import '../../../../../data/simple_result.dart';
 
-class WriteTodoDialog extends DialogWidget<WriteTodoResult> {
+class WriteTodoDialog
+    extends DialogWidget<SimpleResult<TodoWriteResult, void>> {
   final DateTime selectedDate;
   final Todo? todoForEdit;
 
@@ -33,6 +36,8 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
 
   String scopeText = '전체 공개';
   Scope scope = Scope.PUBLIC;
+
+  bool showRedTextLine = false;
 
   @override
   void initState() {
@@ -193,13 +198,16 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
                         ),
                       ),
                       onPressed: () {
-                        widget.hide(
-                          WriteTodoResult(
-                            todoName: textController.text,
-                            date: widget.selectedDate,
-                            scope: scope,
-                          ),
-                        );
+                        // WriteTodoResult result = WriteTodoResult(
+                        //   todoName: textController.text,
+                        //   date: widget.selectedDate,
+                        //   scope: scope,
+                        // );
+
+                        // await saveTodo(result.toTodo());
+
+                        // widget.hide(result);
+                        done(context);
                       },
                     ),
                   ),
@@ -217,5 +225,20 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
     AppKeyboardUtil.show(context, node);
+  }
+
+  void done(BuildContext context) {
+    if (textController.text.trim().isEmpty) {
+      setState(() {
+        showRedTextLine = true;
+      });
+      return;
+    }
+
+    widget.hide(SimpleResult.success(TodoWriteResult(
+      todoName: textController.text,
+      date: widget.selectedDate,
+      scope: scope,
+    )));
   }
 }
