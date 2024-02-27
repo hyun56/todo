@@ -32,7 +32,7 @@ class _CategoryRoutineBannerState extends State<CategoryRoutineBanner> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(23, 25, 21, 2),
+          padding: const EdgeInsets.fromLTRB(23, 50, 21, 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,

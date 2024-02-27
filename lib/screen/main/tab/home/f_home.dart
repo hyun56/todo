@@ -44,28 +44,32 @@ class _HomeFragmentState extends State<HomeFragment> with TodoDataProvider {
                   // TodoCard(content: 'test'),
                   // TodoCard(content: 'test2'),
                   // const SizedBox(height: 20),
-                  // CategoryBanner(
-                  //   title: '기본 카테고리',
-                  //   selectedDate: selectedDate,
-                  // ),
+                  CategoryBanner(
+                    title: 'Todo',
+                    selectedDate: selectedDate,
+                  ),
                   // const SizedBox(height: 20),
                   // CategoryBanner(
                   //   title: '카테고리 2',
                   //   selectedDate: selectedDate,
                   // ),
                   // const SizedBox(height: 20),
+                  // const Padding(
+                  //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 23),
+                  //   child: TodoList(),
+                  // ),
                 ],
               ),
             ),
-            const Expanded(
-              child: TodoList(),
-            ),
-            FloatingActionButton(
-              onPressed: () async {
-                todoData.addTodo(context, selectedDate);
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
+            // const Expanded(
+            //   child: TodoList(),
+            // ),
+            // FloatingActionButton(
+            //   onPressed: () async {
+            //     todoData.addTodo(context, selectedDate);
+            //   },
+            //   child: const Icon(CupertinoIcons.add),
+            // ),
           ],
         ),
       ),

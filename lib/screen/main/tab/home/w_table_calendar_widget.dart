@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/theme/colors.dart';
+import '../../../../data/memory/todo_data.dart';
+import '../../../../data/memory/vo_todo.dart';
 
-class TableCalendarWidget extends StatelessWidget {
+class TableCalendarWidget extends StatelessWidget with TodoDataProvider {
   final OnDaySelected onDaySelected; // 날짜 선택 시 실행할 함수
   final DateTime selectedDate; // 선택된 날짜
 
-  const TableCalendarWidget({
+  TableCalendarWidget({
     super.key,
     required this.onDaySelected,
     required this.selectedDate,
@@ -21,7 +23,8 @@ class TableCalendarWidget extends StatelessWidget {
       lastDay: DateTime(3000), // 달력의 최대 날자
       // focusedDay: DateTime.now(), // 달력을 보여줄 때 기준이 되는 날
       calendarFormat: CalendarFormat.week, // 한 주만 보이도록
-      daysOfWeekHeight: 38, // 요일 이름이 표시되는 영역의 높이를 설정
+      daysOfWeekHeight: 20, // 요일 이름이 표시되는 영역의 높이를 설정
+      rowHeight: 70,
 
       focusedDay: DateTime.now(),
       onDaySelected: onDaySelected,
@@ -30,6 +33,18 @@ class TableCalendarWidget extends StatelessWidget {
           date.year == selectedDate.year &&
           date.month == selectedDate.month &&
           date.day == selectedDate.day,
+
+      eventLoader: (day) {
+        final todos = TodoDataProvider()
+            .todoData
+            .todoList
+            .where((e) =>
+                e.date.day == day.day &&
+                e.date.month == day.month &&
+                e.date.year == day.year)
+            .toList();
+        return todos.isNotEmpty ? [todos.length] : [];
+      },
 
       /*selectedDayPredicate: (DateTime day) {
         // selectedDay 와 동일한 날짜의 모양을 바꿔줍니다.
@@ -44,7 +59,7 @@ class TableCalendarWidget extends StatelessWidget {
           return '${date.year}년 ${date.month}월 $weekOfYear주 차';
         },
         titleTextStyle: const TextStyle(
-          fontSize: 16.8,
+          fontSize: 16.5,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
@@ -83,6 +98,31 @@ class TableCalendarWidget extends StatelessWidget {
 
         // outsideDay 모양 조정
         outsideDecoration: BoxDecoration(shape: BoxShape.circle),
+      ),
+
+      calendarBuilders: CalendarBuilders(
+        markerBuilder: (context, date, events) {
+          if (events.isNotEmpty) {
+            final todos = events[0] as List<Todo>;
+            final isAllCompleted = todos.every((todo) => todo.isCompleted);
+
+            return Positioned(
+              bottom: 0,
+              child: Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isAllCompleted
+                      ? darkMainColor2
+                      : mainColor, // 할일이 있으면 빨강색으로 표시합니다.
+                ),
+              ),
+            );
+          } else {
+            return null;
+          }
+        },
       ),
 
       // calendarBuilders: CalendarBuilders(
